@@ -14,7 +14,7 @@ public class Tester {
     public void testUniquePerms(){
         UniquePermutations UP = new UniquePermutations();
         int[] nums = {1,2,3};
-        UP.permuteUnique(nums);
+        UP.permute(nums);
     }
     @Test
     public void moreff(){

@@ -6,31 +6,22 @@ import java.util.List;
  * Created by huzaifa.aejaz on 3/12/18.
  */
 public class UniquePermutations {
-    public List<List<Integer>> permuteUnique(int[] nums) {
-
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> list = new ArrayList<>();
-        permutationHelper(nums,result, list);
-
-        return result;
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        // Arrays.sort(nums); // not necessary
+        backtrack(list, new ArrayList<>(), nums);
+        return list;
     }
-//this beautiful peice of code works perfectly for all results.all possible permutated combinations possible
-    private void permutationHelper(int[] nums, List<List<Integer>> result, List<Integer> temp){
-        // base case
-        if(nums.length==temp.size()){
-            if(!result.contains(new ArrayList<>(temp)))
-                 result.add(new ArrayList<>(temp));
-        }
-        else{
+
+    private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums){
+        if(tempList.size() == nums.length){
+            list.add(new ArrayList<>(tempList));
+        } else{
             for(int i = 0; i < nums.length; i++){
-                if(!temp.contains(nums[i]))
-                  temp.add(nums[i]);//select
-                //int[] hold = nums;
-                //nums = Arrays.copyOfRange(nums,i+1,nums.length);
-                permutationHelper(nums,result,temp);
-                //unchoose
-                temp.remove(temp.size()-1);
-              //  nums = hold;
+                if(tempList.contains(nums[i])) continue; // element already exists, skip
+                tempList.add(nums[i]);
+                backtrack(list, tempList, nums);
+                tempList.remove(tempList.size() - 1);
             }
         }
     }
